@@ -1,4 +1,4 @@
-package ru.mi.mi_spring_ai.model.dto
+package ru.mi.spring.app.model.dto
 
 import com.fasterxml.jackson.annotation.JsonProperty
 

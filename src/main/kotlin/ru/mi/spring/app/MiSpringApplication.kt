@@ -1,11 +1,11 @@
-package ru.mi.mi_spring_ai
+package ru.mi.spring.app
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
-@SpringBootApplication(scanBasePackages = ["ru.mi.mi_spring_ai"])
+@SpringBootApplication(scanBasePackages = ["ru.mi.spring.app"])
 class MiSpringApplication
 
 fun main(args: Array<String>) {
-	runApplication<MiSpringApplication>(*args)
+    runApplication<MiSpringApplication>(*args)
 }

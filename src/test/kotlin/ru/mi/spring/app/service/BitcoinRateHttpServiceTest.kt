@@ -1,4 +1,4 @@
-package ru.mi.mi_spring_ai.service
+package ru.mi.spring.app.service
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.junit.jupiter.api.BeforeEach
@@ -10,8 +10,8 @@ import org.mockito.Mockito.`when`
 import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 import org.springframework.core.env.Environment
-import ru.mi.mi_spring_ai.exceptions.BitcoinRateHttpException
-import ru.mi.mi_spring_ai.model.dto.BitcoinRateRs
+import ru.mi.spring.app.exceptions.BitcoinRateHttpException
+import ru.mi.spring.app.model.dto.BitcoinRateRs
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
 import java.net.http.HttpResponse

@@ -1,8 +1,8 @@
-package ru.mi.mi_spring_ai.controllers
+package ru.mi.spring.app.controllers
 
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
-import ru.mi.mi_spring_ai.service.BitcoinRateService
+import ru.mi.spring.app.service.BitcoinRateService
 
 
 @RestController
