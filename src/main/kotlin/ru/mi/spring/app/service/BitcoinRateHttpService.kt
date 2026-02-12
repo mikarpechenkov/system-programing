@@ -1,12 +1,12 @@
-package ru.mi.mi_spring_ai.service
+package ru.mi.spring.app.service
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.core.env.Environment
 import org.springframework.stereotype.Service
-import ru.mi.mi_spring_ai.exceptions.BitcoinRateHttpException
-import ru.mi.mi_spring_ai.model.dto.BitcoinRateRs
-import ru.mi.mi_spring_ai.utils.debug
-import ru.mi.mi_spring_ai.utils.error
+import ru.mi.spring.app.exceptions.BitcoinRateHttpException
+import ru.mi.spring.app.model.dto.BitcoinRateRs
+import ru.mi.spring.app.utils.debug
+import ru.mi.spring.app.utils.error
 import java.net.URI
 import java.net.http.HttpClient
 import java.net.http.HttpRequest

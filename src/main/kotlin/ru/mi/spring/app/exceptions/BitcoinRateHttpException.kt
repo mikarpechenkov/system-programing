@@ -1,4 +1,4 @@
-package ru.mi.mi_spring_ai.exceptions
+package ru.mi.spring.app.exceptions
 
 import java.lang.RuntimeException
 
