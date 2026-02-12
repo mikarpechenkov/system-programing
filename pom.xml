@@ -17,6 +17,10 @@
         <kotlin.version>2.0.0</kotlin.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+
+        <!-- region third-party versions -->
+        <detekt.version>1.23.8</detekt.version>
+        <!-- endregion -->
     </properties>
 
     <dependencyManagement>
@@ -112,6 +116,22 @@
                         <version>${kotlin.version}</version>
                     </dependency>
                 </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>com.github.ozsie</groupId>
+                <artifactId>detekt-maven-plugin</artifactId>
+                <version>${detekt.version}</version>
+                <executions>
+                    <execution>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <config>config/detekt-config.yml</config>
+                </configuration>
             </plugin>
         </plugins>
     </build>
