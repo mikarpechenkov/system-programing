@@ -6,10 +6,9 @@ on:
     types: [ "closed" ]
   push:
     branches: [ "main" ]
-  workflow_dispatch: # Кнопка для ручного запуска
+  workflow_dispatch:
 
 jobs:
-  # 1. Этап проверки и сборки артефакта
   build-jar:
     runs-on: ubuntu-latest
     steps:
@@ -24,21 +23,18 @@ jobs:
       - name: Build JAR
         run: mvn clean package
 
-      # Сохраняем JAR, чтобы передать его в следующую Job
       - name: Upload JAR
         uses: actions/upload-artifact@v4
         with:
           name: app-jar
           path: target/*.jar
 
-  # 2. Этап сборки Docker-образа
   publish-docker:
-    needs: build-jar # Запускать только после успеха первой Job
+    needs: build-jar
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      # Скачиваем JAR, собранный на предыдущем этапе
       - name: Download JAR
         uses: actions/download-artifact@v4
         with:
@@ -55,7 +51,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          # Используем простой Dockerfile, так как JAR уже готов
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/my-app:latest
