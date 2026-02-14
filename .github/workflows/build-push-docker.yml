@@ -1,0 +1,61 @@
+name: Build and Push docker
+
+on:
+  pull_request:
+    branches: [ "main" ]
+    types: [ "closed" ]
+  push:
+    branches: [ "main" ]
+  workflow_dispatch: # Кнопка для ручного запуска
+
+jobs:
+  # 1. Этап проверки и сборки артефакта
+  build-jar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        name: Set up JDK 17
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build JAR
+        run: mvn clean package
+
+      # Сохраняем JAR, чтобы передать его в следующую Job
+      - name: Upload JAR
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-jar
+          path: target/*.jar
+
+  # 2. Этап сборки Docker-образа
+  publish-docker:
+    needs: build-jar # Запускать только после успеха первой Job
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Скачиваем JAR, собранный на предыдущем этапе
+      - name: Download JAR
+        uses: actions/download-artifact@v4
+        with:
+          name: app-jar
+          path: target/
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and Push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          # Используем простой Dockerfile, так как JAR уже готов
+          file: ./Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/my-app:latest
